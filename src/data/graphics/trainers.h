@@ -273,6 +273,8 @@ const u16 gTrainerPalette_PyramidKingBrandon[] = INCGFX_U16("graphics/trainers/f
 
 const u32 gTrainerFrontPic_Red[] = INCGFX_U32("graphics/trainers/front_pics/red.png", ".4bpp.smol");
 const u16 gTrainerPalette_Red[] = INCGFX_U16("graphics/trainers/front_pics/red.png", ".gbapal");
+const u32 gTrainerFrontPic_Joey[] = INCGFX_U32("graphics/trainers/front_pics/joey.png", ".4bpp.smol");
+const u16 gTrainerPalette_Joey[] = INCGFX_U16("graphics/trainers/front_pics/joey.png", ".gbapal");
 
 const u32 gTrainerFrontPic_Leaf[] = INCGFX_U32("graphics/trainers/front_pics/leaf.png", ".4bpp.smol");
 const u16 gTrainerPalette_Leaf[] = INCGFX_U16("graphics/trainers/front_pics/leaf.png", ".gbapal");
@@ -604,7 +606,7 @@ const struct TrainerPicInfo gTrainerPicInfo[TRAINER_PIC_COUNT] =
     },
     [TRAINER_PIC_RED] =
     {
-        .frontPic = TRAINER_FRONT_PIC(gTrainerFrontPic_Red, gTrainerPalette_Red),
+        .frontPic = TRAINER_FRONT_PIC(gTrainerFrontPic_Joey, gTrainerPalette_Joey),
         .backPic = TRAINER_BACK_PIC(4, gTrainerBackPic_Joey, gTrainerBackPicPalette_Joey, sBackAnims_Hoenn),
     },
     [TRAINER_PIC_LEAF] =
