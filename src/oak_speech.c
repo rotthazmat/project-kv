@@ -74,7 +74,7 @@ static void Task_OakSpeech_ReturnNidoranFToPokeBall(u8);
 static void Task_OakSpeech_TellMeALittleAboutYourself(u8);
 static void Task_OakSpeech_FadeOutOak(u8);
 static void Task_OakSpeech_AskPlayerGender(u8);
-static void Task_OakSpeech_ShowGenderOptions(u8);
+static void UNUSED Task_OakSpeech_ShowGenderOptions(u8);
 static void Task_OakSpeech_HandleGenderInput(u8);
 static void Task_OakSpeech_ClearGenderWindows(u8);
 static void Task_OakSpeech_LoadPlayerPic(u8);
@@ -663,6 +663,8 @@ static const u8 *const sRivalNameChoices[] =
     gNameChoice_Geki
 #endif
 };
+
+static const u8 sText_KantoVersePlayerName[] = _("JOEY");
 
 enum
 {
@@ -1283,13 +1285,14 @@ static void Task_OakSpeech_AskPlayerGender(u8 taskId)
         {
             tTrainerPicPosX = -60;
             ClearTrainerPic();
-            OakSpeechPrintMessage(gOakSpeech_Text_AskPlayerGender, sOakSpeechResources->textSpeed, FALSE);
-            gTasks[taskId].func = Task_OakSpeech_ShowGenderOptions;
+            // Kanto-Verse: there is a single male player character, so skip the gender question
+            gSaveBlock2Ptr->playerGender = MALE;
+            gTasks[taskId].func = Task_OakSpeech_LoadPlayerPic;
         }
     }
 }
 
-static void Task_OakSpeech_ShowGenderOptions(u8 taskId)
+static void UNUSED Task_OakSpeech_ShowGenderOptions(u8 taskId)
 {
     if (!IsTextPrinterActiveOnWindow(WIN_INTRO_TEXTBOX))
     {
@@ -1366,8 +1369,10 @@ static void Task_OakSpeech_YourNameWhatIsIt(u8 taskId)
         else
         {
             tTrainerPicPosX = 0;
-            OakSpeechPrintMessage(gOakSpeech_Text_YourNameWhatIsIt, sOakSpeechResources->textSpeed, FALSE);
-            gTasks[taskId].func = Task_OakSpeech_FadeOutForPlayerNamingScreen;
+            // Kanto-Verse: the player is always JOEY and the rival is always RED, so skip both naming segments
+            StringCopy_PlayerName(gSaveBlock2Ptr->playerName, sText_KantoVersePlayerName);
+            StringCopy_PlayerName(gSaveBlock1Ptr->rivalName, gText_ExpandedPlaceholder_Red);
+            gTasks[taskId].func = Task_OakSpeech_LetsGo;
         }
     }
 }

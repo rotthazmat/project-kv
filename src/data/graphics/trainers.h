@@ -480,11 +480,13 @@ const u8 gTrainerBackPic_Wally[] = INCGFX_U8("graphics/trainers/back_pics/wally.
 const u8 gTrainerBackPic_Steven[] = INCGFX_U8("graphics/trainers/back_pics/steven.png", ".4bpp");
 const u8 gTrainerBackPic_Pokedude[] = INCGFX_U8("graphics/trainers/back_pics/pokedude.png", ".4bpp");
 const u8 gTrainerBackPic_OldMan[] = INCGFX_U8("graphics/trainers/back_pics/old_man.png", ".4bpp");
+const u8 gTrainerBackPic_Joey[] = INCGFX_U8("graphics/trainers/back_pics/joey.png", ".4bpp");
 
 const u16 gTrainerBackPicPalette_Red[] = INCGFX_U16("graphics/trainers/back_pics/red.png", ".gbapal");
 const u16 gTrainerBackPicPalette_Leaf[] = INCGFX_U16("graphics/trainers/back_pics/leaf.png", ".gbapal");
 const u16 gTrainerBackPicPalette_Pokedude[] = INCGFX_U16("graphics/trainers/back_pics/pokedude.png", ".gbapal");
 const u16 gTrainerBackPicPalette_OldMan[] = INCGFX_U16("graphics/trainers/back_pics/old_man.png", ".gbapal");
+const u16 gTrainerBackPicPalette_Joey[] = INCGFX_U16("graphics/trainers/back_pics/joey.png", ".gbapal");
 
 
 static const union AnimCmd sAnimCmd_Hoenn[] =
@@ -603,7 +605,7 @@ const struct TrainerPicInfo gTrainerPicInfo[TRAINER_PIC_COUNT] =
     [TRAINER_PIC_RED] =
     {
         .frontPic = TRAINER_FRONT_PIC(gTrainerFrontPic_Red, gTrainerPalette_Red),
-        .backPic = TRAINER_BACK_PIC(5, gTrainerBackPic_Red, gTrainerBackPicPalette_Red, sBackAnims_Kanto),
+        .backPic = TRAINER_BACK_PIC(4, gTrainerBackPic_Joey, gTrainerBackPicPalette_Joey, sBackAnims_Hoenn),
     },
     [TRAINER_PIC_LEAF] =
     {
