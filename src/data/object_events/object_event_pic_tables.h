@@ -1497,6 +1497,59 @@ static const struct SpriteFrameImage sPicTable_YoungsterFrlg[] = {
     overworld_ascending_frames(gObjectEventPic_YoungsterFrlg, 2, 4),
 };
 
+// Kanto-Verse player. Walking frames 0-8 come from the youngster sprite;
+// it has no running frames, so frames 9-19 reuse the matching walking frames.
+static const struct SpriteFrameImage sPicTable_JoeyNormal[] = {
+    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 0),
+    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 1),
+    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 2),
+    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 3),
+    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 4),
+    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 5),
+    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 6),
+    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 7),
+    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 8),
+    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 0), // Run south
+    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 3),
+    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 4),
+    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 1), // Run north
+    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 5),
+    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 6),
+    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 2), // Run west/east
+    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 7),
+    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 8),
+    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 0),
+    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 0),
+};
+
+// The sheets below are recolors of Red's, using the same frame layout.
+static const struct SpriteFrameImage sPicTable_JoeyBike[] = {
+    overworld_ascending_frames(gObjectEventPic_JoeyBike, 4, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_JoeySurf[] = {
+    overworld_frame(gObjectEventPic_JoeySurfRun, 2, 4, 0),
+    overworld_frame(gObjectEventPic_JoeySurfRun, 2, 4, 1),
+    overworld_frame(gObjectEventPic_JoeySurfRun, 2, 4, 2),
+    overworld_frame(gObjectEventPic_JoeySurfRun, 2, 4, 0),
+    overworld_frame(gObjectEventPic_JoeySurfRun, 2, 4, 0),
+    overworld_frame(gObjectEventPic_JoeySurfRun, 2, 4, 1),
+    overworld_frame(gObjectEventPic_JoeySurfRun, 2, 4, 1),
+    overworld_frame(gObjectEventPic_JoeySurfRun, 2, 4, 2),
+    overworld_frame(gObjectEventPic_JoeySurfRun, 2, 4, 2),
+    overworld_frame(gObjectEventPic_JoeySurfRun, 2, 4, 0),
+    overworld_frame(gObjectEventPic_JoeySurfRun, 2, 4, 1),
+    overworld_frame(gObjectEventPic_JoeySurfRun, 2, 4, 2),
+};
+
+static const struct SpriteFrameImage sPicTable_JoeyItem[] = {
+    overworld_ascending_frames(gObjectEventPic_JoeyItem, 2, 4),
+};
+
+static const struct SpriteFrameImage sPicTable_JoeyFish[] = {
+    overworld_ascending_frames(gObjectEventPic_JoeyFish, 4, 4),
+};
+
 static const struct SpriteFrameImage sPicTable_Woman1Frlg[] = {
     overworld_ascending_frames(gObjectEventPic_Woman1Frlg, 2, 4),
 };

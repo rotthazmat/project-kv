@@ -387,6 +387,12 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DeoxysD;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DeoxysA;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DeoxysN;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_SSAnne;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_JoeyNormal;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_JoeyBike;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_JoeySurf;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_JoeyFieldMove;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_JoeyFish;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_JoeyVSSeeker;
 // Begin Pokémon event objects
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_PokeBall;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Follower;
@@ -790,6 +796,12 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_DEOXYS_A]                 = &gObjectEventGraphicsInfo_DeoxysA,
     [OBJ_EVENT_GFX_DEOXYS_N]                 = &gObjectEventGraphicsInfo_DeoxysN,
     [OBJ_EVENT_GFX_SS_ANNE]                  = &gObjectEventGraphicsInfo_SSAnne,
+    [OBJ_EVENT_GFX_JOEY_NORMAL]              = &gObjectEventGraphicsInfo_JoeyNormal,
+    [OBJ_EVENT_GFX_JOEY_BIKE]                = &gObjectEventGraphicsInfo_JoeyBike,
+    [OBJ_EVENT_GFX_JOEY_SURF]                = &gObjectEventGraphicsInfo_JoeySurf,
+    [OBJ_EVENT_GFX_JOEY_FIELD_MOVE]          = &gObjectEventGraphicsInfo_JoeyFieldMove,
+    [OBJ_EVENT_GFX_JOEY_FISH]                = &gObjectEventGraphicsInfo_JoeyFish,
+    [OBJ_EVENT_GFX_JOEY_VS_SEEKER]           = &gObjectEventGraphicsInfo_JoeyVSSeeker,
 #endif // IS_FRLG
 };
 
