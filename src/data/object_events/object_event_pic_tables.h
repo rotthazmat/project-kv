@@ -1498,7 +1498,7 @@ static const struct SpriteFrameImage sPicTable_YoungsterFrlg[] = {
 };
 
 // Kanto-Verse player. Walking frames 0-8 come from the youngster sprite;
-// it has no running frames, so frames 9-19 reuse the matching walking frames.
+// running frames 9-19 come from joey_surf_run.png, like Red's layout.
 static const struct SpriteFrameImage sPicTable_JoeyNormal[] = {
     overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 0),
     overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 1),
@@ -1509,17 +1509,17 @@ static const struct SpriteFrameImage sPicTable_JoeyNormal[] = {
     overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 6),
     overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 7),
     overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 8),
-    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 0), // Run south
-    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 3),
-    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 4),
-    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 1), // Run north
-    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 5),
-    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 6),
-    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 2), // Run west/east
-    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 7),
-    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 8),
-    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 0),
-    overworld_frame(gObjectEventPic_JoeyNormal, 2, 4, 0),
+    overworld_frame(gObjectEventPic_JoeySurfRun, 2, 4, 3),
+    overworld_frame(gObjectEventPic_JoeySurfRun, 2, 4, 4),
+    overworld_frame(gObjectEventPic_JoeySurfRun, 2, 4, 5),
+    overworld_frame(gObjectEventPic_JoeySurfRun, 2, 4, 6),
+    overworld_frame(gObjectEventPic_JoeySurfRun, 2, 4, 7),
+    overworld_frame(gObjectEventPic_JoeySurfRun, 2, 4, 8),
+    overworld_frame(gObjectEventPic_JoeySurfRun, 2, 4, 9),
+    overworld_frame(gObjectEventPic_JoeySurfRun, 2, 4, 10),
+    overworld_frame(gObjectEventPic_JoeySurfRun, 2, 4, 11),
+    overworld_frame(gObjectEventPic_JoeySurfRun, 2, 4, 12),
+    overworld_frame(gObjectEventPic_JoeySurfRun, 2, 4, 13),
 };
 
 // The sheets below are recolors of Red's, using the same frame layout.
