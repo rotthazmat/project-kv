@@ -2,11 +2,22 @@
 
 Build a pokeemerald-expansion ROM entirely in the cloud. Nothing is installed on your PC except a small emulator to play the result.
 
+Kanto-Verse uses the expansion's **FireRed build** (`make firered`): Kanto maps and story on top of the expansion's modern engine. See the expansion's [FireRed/LeafGreen guide](docs/tutorials/how_to_frlg.md) for details.
+
 **What you need:**
 
 - A GitHub account
 - A web browser
 - [mGBA](https://mgba.io/downloads.html) to play the ROM (the Windows portable `.7z` is around 20 MB)
+
+## Branches
+
+| Branch | Contents |
+|---|---|
+| `master` | An untouched copy of the expansion. Never commit to it. |
+| `kv-master` | Kanto-Verse. All work goes here. |
+
+Keeping `master` clean makes expansion updates easy: click **Sync fork** on GitHub to update `master`, then merge `master` into `kv-master` when you're ready.
 
 ## 1. Fork the expansion into your own repository
 
@@ -17,15 +28,17 @@ Build a pokeemerald-expansion ROM entirely in the cloud. Nothing is installed on
    - Leave **Copy the `master` branch only** checked. `master` is the stable branch the docs recommend.
 4. Click **Create fork**.
 
-You now have `github.com/<your-user>/project-kv`. This is your project.
+You now have `github.com/<your-user>/project-kv`. This is your project. Create the `kv-master` branch from `master` and do all your work there.
 
 ## 2. Create a codespace
 
 1. On your fork's page, click the green **Code** button.
 2. Open the **Codespaces** tab.
-3. Click **Create codespace on master**.
+3. Open the **⋯** menu → **New with options**, choose the `kv-master` branch, and create the codespace.
 
 A VS Code editor opens in your browser, running on a Linux machine in the cloud. The first startup takes a minute or two.
+
+Check that the bottom-left corner shows `kv-master`. If it shows `master`, run `git switch kv-master` in the terminal.
 
 ## 3. Install the build tools (once per codespace)
 
@@ -43,28 +56,32 @@ These are the official Ubuntu dependencies from the expansion's `docs/install/li
 In the same terminal:
 
 ```bash
-make -j$(nproc)
+make firered -j$(nproc)
 ```
 
 The first build takes several minutes because it also compiles the helper tools. Later builds only recompile what changed and are much faster.
 
-When it finishes, `pokeemerald.gba` appears in the file explorer on the left.
+When it finishes, `pokefirered.gba` appears in the file explorer on the left.
+
+If the codespace ever built the Emerald version (plain `make`), run `make clean` once before building FireRed. The expansion currently requires a clean build when switching between the two.
 
 ## 5. Play it
 
-1. In the left file explorer, right-click `pokeemerald.gba` and choose **Download**.
+1. In the left file explorer, right-click `pokefirered.gba` and choose **Download**.
 2. Open the downloaded file in mGBA.
 
 If the game boots to the intro, your setup works. Do this before changing anything, so you know any later errors come from your edits and not the setup.
 
 ## 6. Make a first change
 
-Try a small edit to learn the edit → build → play loop. This example edits directly in the codespace. For day-to-day work, edit on your PC instead (see [Local editing workflow](#local-editing-workflow)).
+Try a small edit to learn the edit → build → play loop. Change Pallet Town's music to Littleroot Town's theme from Emerald:
 
-1. Open `src/starter_choose.c` and find the `sStarterMon` list.
-2. Replace one starter, for example `SPECIES_TREECKO` with `SPECIES_BULBASAUR`.
-3. Run `make -j$(nproc)` again.
-4. Download the new `pokeemerald.gba` and start a new game in mGBA.
+1. Open `data/maps/PalletTown_Frlg/map.json`.
+2. Change `"music": "MUS_RG_PALLET"` to `"music": "MUS_LITTLEROOT"`.
+3. Build with `make firered -j$(nproc)`.
+4. Download the new `pokefirered.gba`, start a new game, and walk outside your house.
+
+For day-to-day work, make edits on your PC instead (see [Local editing workflow](#local-editing-workflow)).
 
 ## 7. Save your work
 
@@ -72,7 +89,7 @@ The ROM itself is ignored by Git (it's always rebuilt from source). Save your so
 
 ```bash
 git add -A
-git commit -m "Change starter to Bulbasaur"
+git commit -m "Play Littleroot theme in Pallet Town"
 git push
 ```
 
@@ -114,7 +131,7 @@ To stay within the allowance:
 Code and maps are edited on your PC. The codespace is only used to build the ROM. GitHub sits in the middle, and changes move only when you push and pull:
 
 ```text
-Your PC (code + Porymap)  ──push──▶  GitHub  ──pull──▶  Codespace (make → .gba)
+Your PC (code + Porymap)  ──push──▶  GitHub  ──pull──▶  Codespace (make firered → .gba)
 ```
 
 ### One-time local setup (already done)
@@ -127,6 +144,8 @@ git config core.autocrlf false
 git remote add origin git@github.com:rotthazmat/project-kv.git
 git fetch --depth 1 origin master
 git checkout master
+git switch -c kv-master
+git push -u origin kv-master
 ```
 
 - `core.autocrlf false` keeps Linux line endings, which the build in the codespace expects.
@@ -135,7 +154,7 @@ git checkout master
 
 ### Every session
 
-1. **On your PC:** run `git pull` to get any changes made elsewhere.
+1. **On your PC:** check you're on `kv-master`, then run `git pull` to get any changes made elsewhere.
 2. **Edit:** change code (with Claude Code) or maps (with Porymap).
 3. **On your PC:** commit and push:
 
@@ -149,10 +168,10 @@ git checkout master
 
    ```bash
    git pull
-   make -j$(nproc)
+   make firered -j$(nproc)
    ```
 
-   Then right-click `pokeemerald.gba` → **Download** and play it in mGBA.
+   Then right-click `pokefirered.gba` → **Download** and play it in mGBA.
 
 5. **Stop the codespace** when you're done.
 
@@ -162,9 +181,14 @@ If the build fails, fix the error on your PC and repeat steps 3–4. Avoid editi
 
 1. Download the Windows release of [Porymap](https://github.com/huderlem/porymap/releases).
 2. Open it and choose **File → Open Project**, then select `C:\Users\Jose\Projects\apps\kanto-verse`.
-3. Edit maps, save, then commit and push as above.
+3. Under **Options → Project Settings**, apply the FireRed settings from the [FireRed/LeafGreen guide](docs/tutorials/how_to_frlg.md#porymap-adjustments):
+   - **General** tab: base game version `pokefirered`.
+   - **Identifiers** tab: set the five `*_FRLG` values listed in the guide.
+4. Edit maps, save, then commit and push as above.
 
 Porymap works directly on the source files, so it doesn't need a local build.
+
+New maps need a `"region": "REGION_KANTO"` attribute, or they won't be included in the FireRed build. The guide explains how to add it.
 
 ## Coming back later
 
