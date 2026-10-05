@@ -665,6 +665,7 @@ static const u8 *const sRivalNameChoices[] =
 };
 
 static const u8 sText_KantoVersePlayerName[] = _("JOEY");
+static const u8 sText_KantoVerseRivalName[] = _("BLUE");
 
 enum
 {
@@ -1369,9 +1370,9 @@ static void Task_OakSpeech_YourNameWhatIsIt(u8 taskId)
         else
         {
             tTrainerPicPosX = 0;
-            // Kanto-Verse: the player is always JOEY and the rival is always RED, so skip both naming segments
+            // Kanto-Verse: the player is always JOEY and the rival is always BLUE, so skip both naming segments
             StringCopy_PlayerName(gSaveBlock2Ptr->playerName, sText_KantoVersePlayerName);
-            StringCopy_PlayerName(gSaveBlock1Ptr->rivalName, gText_ExpandedPlaceholder_Red);
+            StringCopy_PlayerName(gSaveBlock1Ptr->rivalName, sText_KantoVerseRivalName);
             gTasks[taskId].func = Task_OakSpeech_LetsGo;
         }
     }

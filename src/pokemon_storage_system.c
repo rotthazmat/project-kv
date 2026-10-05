@@ -109,6 +109,8 @@ enum {
     MSG_ITEM_IS_HELD,
     MSG_CHANGED_TO_ITEM,
     MSG_CANT_STORE_MAIL,
+    MSG_PARTNER_MON_1,
+    MSG_PARTNER_MON_2,
 };
 
 // IDs for how to resolve variables in the above messages
@@ -659,6 +661,7 @@ static void InitSummaryScreenData(void);
 static void SetSelectionAfterSummaryScreen(void);
 static void SetMonMarkings(u8);
 static bool8 IsRemovingLastPartyMon(void);
+static bool8 IsDisplayMonKantoVersePartner(void);
 static bool8 CanPlaceMon(void);
 static bool8 CanShiftMon(void);
 static bool8 IsMonBeingMoved(void);
@@ -1079,6 +1082,8 @@ static const struct StorageMessage sMessages[] =
     [MSG_ITEM_IS_HELD]         = {COMPOUND_STRING("{DYNAMIC 0} is now held."),   MSG_VAR_ITEM_NAME},
     [MSG_CHANGED_TO_ITEM]      = {COMPOUND_STRING("Changed to {DYNAMIC 0}."),    MSG_VAR_ITEM_NAME},
     [MSG_CANT_STORE_MAIL]      = {COMPOUND_STRING("MAIL can't be stored!"),      MSG_VAR_NONE},
+    [MSG_PARTNER_MON_1]        = {COMPOUND_STRING("{DYNAMIC 0} always supported {DYNAMIC 1},"), MSG_VAR_MON_NAME_1},
+    [MSG_PARTNER_MON_2]        = {COMPOUND_STRING("so he can't do that!"),       MSG_VAR_NONE},
 };
 
 static const struct WindowTemplate sYesNoWindowTemplate =
@@ -2235,6 +2240,8 @@ enum {
     MSTATE_WAIT_MSG,
     MSTATE_ERROR_LAST_PARTY_MON,
     MSTATE_ERROR_HAS_MAIL,
+    MSTATE_ERROR_PARTNER_MON,
+    MSTATE_WAIT_PARTNER_MSG,
     MSTATE_WAIT_ERROR_MSG,
     MSTATE_MULTIMOVE_RUN,
     MSTATE_MULTIMOVE_RUN_CANCEL,
@@ -2325,7 +2332,11 @@ static void Task_PokeStorageMain(u8 taskId)
             }
             break;
         case INPUT_DEPOSIT:
-            if (!IsRemovingLastPartyMon())
+            if (IsDisplayMonKantoVersePartner())
+            {
+                sStorage->state = MSTATE_ERROR_PARTNER_MON;
+            }
+            else if (!IsRemovingLastPartyMon())
             {
                 if (ItemIsMail(sStorage->displayMonItemId))
                 {
@@ -2354,7 +2365,11 @@ static void Task_PokeStorageMain(u8 taskId)
             }
             break;
         case INPUT_SHIFT_MON:
-            if (!CanShiftMon())
+            if (sCursorArea == CURSOR_AREA_IN_BOX && IsDisplayMonKantoVersePartner())
+            {
+                sStorage->state = MSTATE_ERROR_PARTNER_MON;
+            }
+            else if (!CanShiftMon())
             {
                 sStorage->state = MSTATE_ERROR_LAST_PARTY_MON;
             }
@@ -2369,8 +2384,15 @@ static void Task_PokeStorageMain(u8 taskId)
             SetPokeStorageTask(Task_WithdrawMon);
             break;
         case INPUT_PLACE_MON:
-            PlaySE(SE_SELECT);
-            SetPokeStorageTask(Task_PlaceMon);
+            if (sCursorArea == CURSOR_AREA_IN_BOX && IsDisplayMonKantoVersePartner())
+            {
+                sStorage->state = MSTATE_ERROR_PARTNER_MON;
+            }
+            else
+            {
+                PlaySE(SE_SELECT);
+                SetPokeStorageTask(Task_PlaceMon);
+            }
             break;
         case INPUT_TAKE_ITEM:
             PlaySE(SE_SELECT);
@@ -2469,6 +2491,18 @@ static void Task_PokeStorageMain(u8 taskId)
         PlaySE(SE_FAILURE);
         PrintMessage(MSG_PLEASE_REMOVE_MAIL);
         sStorage->state = MSTATE_WAIT_ERROR_MSG;
+        break;
+    case MSTATE_ERROR_PARTNER_MON:
+        PlaySE(SE_FAILURE);
+        PrintMessage(MSG_PARTNER_MON_1);
+        sStorage->state = MSTATE_WAIT_PARTNER_MSG;
+        break;
+    case MSTATE_WAIT_PARTNER_MSG:
+        if (JOY_NEW(A_BUTTON | B_BUTTON | DPAD_ANY))
+        {
+            PrintMessage(MSG_PARTNER_MON_2);
+            sStorage->state = MSTATE_WAIT_ERROR_MSG;
+        }
         break;
     case MSTATE_WAIT_ERROR_MSG:
         if (JOY_NEW(A_BUTTON | B_BUTTON | DPAD_ANY))
@@ -2597,12 +2631,23 @@ static void Task_OnSelectedMon(u8 taskId)
             }
             break;
         case MENU_PLACE:
-            PlaySE(SE_SELECT);
-            ClearBottomWindow();
-            SetPokeStorageTask(Task_PlaceMon);
+            if (sCursorArea == CURSOR_AREA_IN_BOX && IsDisplayMonKantoVersePartner())
+            {
+                sStorage->state = 7;
+            }
+            else
+            {
+                PlaySE(SE_SELECT);
+                ClearBottomWindow();
+                SetPokeStorageTask(Task_PlaceMon);
+            }
             break;
         case MENU_SHIFT:
-            if (!CanShiftMon())
+            if (sCursorArea == CURSOR_AREA_IN_BOX && IsDisplayMonKantoVersePartner())
+            {
+                sStorage->state = 7;
+            }
+            else if (!CanShiftMon())
             {
                 sStorage->state = 3;
             }
@@ -2619,7 +2664,11 @@ static void Task_OnSelectedMon(u8 taskId)
             SetPokeStorageTask(Task_WithdrawMon);
             break;
         case MENU_STORE:
-            if (IsRemovingLastPartyMon())
+            if (IsDisplayMonKantoVersePartner())
+            {
+                sStorage->state = 7;
+            }
+            else if (IsRemovingLastPartyMon())
             {
                 sStorage->state = 3;
             }
@@ -2635,7 +2684,11 @@ static void Task_OnSelectedMon(u8 taskId)
             }
             break;
         case MENU_RELEASE:
-            if (IsRemovingLastPartyMon())
+            if (IsDisplayMonKantoVersePartner())
+            {
+                sStorage->state = 7;
+            }
+            else if (IsRemovingLastPartyMon())
             {
                 sStorage->state = 3;
             }
@@ -2719,6 +2772,18 @@ static void Task_OnSelectedMon(u8 taskId)
         PlaySE(SE_FAILURE);
         PrintMessage(MSG_PLEASE_REMOVE_MAIL);
         sStorage->state = 6;
+        break;
+    case 7: // Kanto-Verse partner can't be stored or released
+        PlaySE(SE_FAILURE);
+        PrintMessage(MSG_PARTNER_MON_1);
+        sStorage->state = 8;
+        break;
+    case 8:
+        if (JOY_NEW(A_BUTTON | B_BUTTON | DPAD_ANY))
+        {
+            PrintMessage(MSG_PARTNER_MON_2);
+            sStorage->state = 6;
+        }
         break;
     case 6:
         if (JOY_NEW(A_BUTTON | B_BUTTON | DPAD_ANY))
@@ -4298,6 +4363,7 @@ static void PrintMessage(u8 id)
     u8 *txtPtr;
 
     DynamicPlaceholderTextUtil_Reset();
+    DynamicPlaceholderTextUtil_SetPlaceholderPtr(1, gSaveBlock2Ptr->playerName);
     switch (sMessages[id].format)
     {
     case MSG_VAR_NONE:
@@ -4328,7 +4394,7 @@ static void PrintMessage(u8 id)
 
     DynamicPlaceholderTextUtil_ExpandPlaceholders(sStorage->messageText, sMessages[id].text);
     FillWindowPixelBuffer(WIN_MESSAGE, PIXEL_FILL(1));
-    AddTextPrinterParameterized(WIN_MESSAGE, FONT_NORMAL, sStorage->messageText, 0, 1, TEXT_SKIP_DRAW, NULL);
+    AddTextPrinterParameterized(WIN_MESSAGE, GetFontIdToFit(sStorage->messageText, FONT_NORMAL, 0, WindowWidthPx(WIN_MESSAGE)), sStorage->messageText, 0, 1, TEXT_SKIP_DRAW, NULL);
     DrawTextBorderOuter(WIN_MESSAGE, 2, 14);
     PutWindowTilemap(WIN_MESSAGE);
     CopyWindowToVram(WIN_MESSAGE, COPYWIN_GFX);
@@ -6881,6 +6947,21 @@ static bool8 IsRemovingLastPartyMon(void)
         return TRUE;
     else
         return FALSE;
+}
+
+// Kanto-Verse: Joey's starting Rattata (and its evolutions, which keep the same personality)
+// can't be stored or released. Checks the selected or held Pokémon.
+static bool8 IsDisplayMonKantoVersePartner(void)
+{
+#if IS_FRLG
+    u32 partnerPersonality = VarGet(VAR_KV_PARTNER_PERSONALITY_LO) | ((u32)VarGet(VAR_KV_PARTNER_PERSONALITY_HI) << 16);
+
+    return partnerPersonality != 0
+        && sStorage->displayMonSpecies != SPECIES_NONE
+        && sStorage->displayMonPersonality == partnerPersonality;
+#else
+    return FALSE;
+#endif
 }
 
 static bool8 CanPlaceMon(void)

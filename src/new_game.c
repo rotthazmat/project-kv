@@ -55,6 +55,7 @@
 
 extern const u8 EventScript_ResetAllMapFlags[];
 extern const u8 EventScript_ResetAllMapFlagsFrlg[];
+extern const u8 EventScript_GiveKantoVerseStartingMon[];
 
 static void ClearFrontierRecord(void);
 static void WarpToTruck(void);
@@ -220,6 +221,13 @@ void NewGameInitData(void)
         StringCopy(gSaveBlock1Ptr->rivalName, rivalName);
 #endif
     FlagSet(FLAG_SYS_B_DASH); // Kanto-Verse: running is available from the start
+#if IS_FRLG
+    RunScriptImmediately(EventScript_GiveKantoVerseStartingMon);
+    // Remember the starting Rattata so the PC can refuse to store or release it
+    u32 partnerPersonality = GetMonData(&gParties[B_TRAINER_PLAYER][0], MON_DATA_PERSONALITY);
+    VarSet(VAR_KV_PARTNER_PERSONALITY_LO, partnerPersonality & 0xFFFF);
+    VarSet(VAR_KV_PARTNER_PERSONALITY_HI, partnerPersonality >> 16);
+#endif
     ResetMiniGamesRecords();
     InitUnionRoomChatRegisteredTexts();
     InitLilycoveLady();

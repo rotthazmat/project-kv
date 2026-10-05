@@ -327,3 +327,9 @@ EventScript_ResetAllMapFlagsFrlg::
 	setflag FLAG_HIDE_SAFFRON_CITY_POKECENTER_SABRINA_JOURNALS
 	setvar VAR_MASSAGE_COOLDOWN_STEP_COUNTER, 500
 	end
+
+@ Kanto-Verse: Joey starts with his Rattata
+EventScript_GiveKantoVerseStartingMon::
+	setflag FLAG_SYS_POKEMON_GET
+	givemon SPECIES_RATTATA, 5, nature=NATURE_ADAMANT, hpIv=MAX_PER_STAT_IVS, atkIv=MAX_PER_STAT_IVS, defIv=MAX_PER_STAT_IVS, speedIv=MAX_PER_STAT_IVS, spAtkIv=MAX_PER_STAT_IVS, spDefIv=MAX_PER_STAT_IVS
+	end
