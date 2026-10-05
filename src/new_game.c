@@ -195,7 +195,10 @@ void NewGameInitData(void)
     ResetGameStats();
     ClearAllContestWinnerPics();
     ClearPlayerLinkBattleRecords();
-    InitSeedotSizeRecord();
+    // Kanto-Verse: in FRLG, the Seedot record's var (0x4047) is VAR_TRAINER_CARD_MON_ICON_5,
+    // and initializing it puts an invalid species icon on the trainer card back
+    if (!IS_FRLG)
+        InitSeedotSizeRecord();
     InitLotadSizeRecord();
     gPartiesCount[B_TRAINER_PLAYER] = 0;
     ZeroPlayerPartyMons();

@@ -47,8 +47,8 @@
 // Used by Quest Log.
 #define VAR_QUEST_LOG_MON_COUNTS           0x4027
 #define VAR_WONDER_NEWS_STEP_COUNTER_FRLG  0x4028
-#define VAR_KV_PARTNER_PERSONALITY_LO      0x4029 // Kanto-Verse: personality of Joey's starting Rattata (low 16 bits)
-#define VAR_KV_PARTNER_PERSONALITY_HI      0x402A // Kanto-Verse: personality of Joey's starting Rattata (high 16 bits)
+#define VAR_0x4029                         0x4029
+#define VAR_0x402A                         0x402A
 #define VAR_0x402B                         0x402B
 #define VAR_DAYS_FRLG                      0x402C // was VAR_RESET_RTC_ENABLE
 #define VAR_0x402D                         0x402D
@@ -260,8 +260,10 @@
 #define VAR_0x40F5                 0x40F5
 #define VAR_0x40F6                 0x40F6
 #define VAR_0x40F7                 0x40F7
-#define VAR_0x40F8                 0x40F8
-#define VAR_0x40F9                 0x40F9
+// Kanto-Verse: personality of Joey's starting Rattata. These numbers are also unused
+// in Emerald's var list (constants/vars.h), which shared code uses in FRLG builds too.
+#define VAR_KV_PARTNER_PERSONALITY_LO 0x40F8
+#define VAR_KV_PARTNER_PERSONALITY_HI 0x40F9
 #define VAR_0x40FA                 0x40FA
 #define VAR_0x40FB                 0x40FB
 #define VAR_0x40FC                 0x40FC
