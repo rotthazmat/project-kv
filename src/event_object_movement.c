@@ -2115,6 +2115,10 @@ struct Pokemon *GetFirstLiveMon(void)
          || (OW_FOLLOWERS_ALLOWED_MET_LOC && GetMonData(mon, MON_DATA_MET_LOCATION) != VarGet(OW_FOLLOWERS_ALLOWED_MET_LOC)))
             continue;
 
+        // Kanto-Verse: only Joey's partner Rattata (or its evolution) follows the player
+        if (GetKantoVersePartnerPersonality() != 0 && !IsKantoVersePartnerPersonality(GetMonData(mon, MON_DATA_PERSONALITY)))
+            continue;
+
         if (gParties[B_TRAINER_PLAYER][i].hp > 0 && !(gParties[B_TRAINER_PLAYER][i].box.isEgg || gParties[B_TRAINER_PLAYER][i].box.isBadEgg))
             return &gParties[B_TRAINER_PLAYER][i];
     }

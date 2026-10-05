@@ -5446,6 +5446,24 @@ bool8 IsMonShiny(struct Pokemon *mon)
     return GetMonData(mon, MON_DATA_IS_SHINY);
 }
 
+// Kanto-Verse: personality of Joey's starting Rattata, or 0 if this save has none
+u32 GetKantoVersePartnerPersonality(void)
+{
+#if IS_FRLG
+    return VarGet(VAR_KV_PARTNER_PERSONALITY_LO) | ((u32)VarGet(VAR_KV_PARTNER_PERSONALITY_HI) << 16);
+#else
+    return 0;
+#endif
+}
+
+// Kanto-Verse: TRUE for Joey's starting Rattata and its evolutions, which keep the same personality
+bool32 IsKantoVersePartnerPersonality(u32 personality)
+{
+    u32 partnerPersonality = GetKantoVersePartnerPersonality();
+
+    return partnerPersonality != 0 && personality == partnerPersonality;
+}
+
 const u8 *GetTrainerPartnerName(void)
 {
     if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER)

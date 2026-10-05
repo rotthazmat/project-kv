@@ -6953,15 +6953,8 @@ static bool8 IsRemovingLastPartyMon(void)
 // can't be stored or released. Checks the selected or held Pokémon.
 static bool8 IsDisplayMonKantoVersePartner(void)
 {
-#if IS_FRLG
-    u32 partnerPersonality = VarGet(VAR_KV_PARTNER_PERSONALITY_LO) | ((u32)VarGet(VAR_KV_PARTNER_PERSONALITY_HI) << 16);
-
-    return partnerPersonality != 0
-        && sStorage->displayMonSpecies != SPECIES_NONE
-        && sStorage->displayMonPersonality == partnerPersonality;
-#else
-    return FALSE;
-#endif
+    return sStorage->displayMonSpecies != SPECIES_NONE
+        && IsKantoVersePartnerPersonality(sStorage->displayMonPersonality);
 }
 
 static bool8 CanPlaceMon(void)
