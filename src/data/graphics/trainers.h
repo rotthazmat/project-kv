@@ -551,6 +551,25 @@ static const union AnimCmd *const sBackAnims_Hoenn[] =
     sAnimCmd_Point_HGSS,
 };
 
+// Kanto-Verse: Joey's 4-frame back sprite idles holding the ball (frame 0)
+// and throws 0 -> 1 -> 2 -> 3, staying on frame 3 (same timings as Emerald's throw)
+static const union AnimCmd sAnimCmd_Joey[] =
+{
+    ANIMCMD_FRAME(0, 24),
+    ANIMCMD_FRAME(1, 9),
+    ANIMCMD_FRAME(2, 24),
+    ANIMCMD_FRAME(3, 9),
+    ANIMCMD_FRAME(3, 50),
+    ANIMCMD_END,
+};
+
+static const union AnimCmd *const sBackAnims_Joey[] =
+{
+    sAnim_GeneralFrame0,
+    sAnimCmd_Joey,
+    sAnimCmd_Point_HGSS,
+};
+
 static const union AnimCmd *const sBackAnims_Kanto[] =
 {
     sAnim_GeneralFrame0,
@@ -607,7 +626,7 @@ const struct TrainerPicInfo gTrainerPicInfo[TRAINER_PIC_COUNT] =
     [TRAINER_PIC_RED] =
     {
         .frontPic = TRAINER_FRONT_PIC(gTrainerFrontPic_Joey, gTrainerPalette_Joey),
-        .backPic = TRAINER_BACK_PIC(4, gTrainerBackPic_Joey, gTrainerBackPicPalette_Joey, sBackAnims_Hoenn),
+        .backPic = TRAINER_BACK_PIC(4, gTrainerBackPic_Joey, gTrainerBackPicPalette_Joey, sBackAnims_Joey),
     },
     [TRAINER_PIC_LEAF] =
     {
