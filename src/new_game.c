@@ -137,8 +137,8 @@ static void ClearFrontierRecord(void)
 static void WarpToTruck(void)
 {
     if (IS_FRLG)
-        // Kanto-Verse: Joey arrives from Johto on the S.S. ANNE, at the top of its gangway
-        SetWarpDestination(MAP_GROUP(MAP_SSANNE_EXTERIOR), MAP_NUM(MAP_SSANNE_EXTERIOR), WARP_ID_NONE, 32, 9);
+        // Kanto-Verse: Joey arrives from Johto on the S.S. AQUA, docked in Vermilion
+        SetWarpDestination(MAP_GROUP(MAP_SSANNE_EXTERIOR), MAP_NUM(MAP_SSANNE_EXTERIOR), WARP_ID_NONE, 41, 25);
     else
         SetWarpDestination(MAP_GROUP(MAP_INSIDE_OF_TRUCK), MAP_NUM(MAP_INSIDE_OF_TRUCK), WARP_ID_NONE, -1, -1);
     WarpIntoMap();

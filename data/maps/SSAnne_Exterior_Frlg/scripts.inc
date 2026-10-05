@@ -1,14 +1,28 @@
 SSAnne_Exterior_Frlg_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, SSAnne_Exterior_OnTransition
+	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, SSAnne_Exterior_OnWarp
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, SSAnne_Exterior_OnFrame
 	.byte 0
+
+@ Kanto-Verse: Joey starts the game at (41, 25), just off the S.S. AQUA (see WarpToTruck in new_game.c).
+@ Maps always load with the player facing south, so turn him north there.
+SSAnne_Exterior_OnWarp::
+	map_script_2 VAR_MAP_SCENE_VERMILION_CITY, 0, SSAnne_Exterior_EventScript_TryFaceNorthOnArrival
+	.2byte 0
+
+SSAnne_Exterior_EventScript_TryFaceNorthOnArrival::
+	getplayerxy VAR_0x8004, VAR_0x8005
+	goto_if_ne VAR_0x8004, 41, SSAnne_Exterior_EventScript_EndOnWarp
+	goto_if_ne VAR_0x8005, 25, SSAnne_Exterior_EventScript_EndOnWarp
+	turnobject LOCALID_PLAYER, DIR_NORTH
+SSAnne_Exterior_EventScript_EndOnWarp::
+	end
 
 SSAnne_Exterior_OnTransition::
 	setworldmapflag FLAG_WORLD_MAP_SSANNE_EXTERIOR
 	end
 
 SSAnne_Exterior_OnFrame::
-	map_script_2 VAR_MAP_SCENE_VERMILION_CITY, 1, SSAnne_Exterior_ExitSSAnne
 	.2byte 0
 
 SSAnne_Exterior_ExitSSAnne::
