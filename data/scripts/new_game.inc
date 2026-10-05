@@ -330,6 +330,8 @@ EventScript_ResetAllMapFlagsFrlg::
 
 @ Kanto-Verse new game setup
 EventScript_KantoVerseNewGame::
+	@ Joey starts in Vermilion (not in his Pallet bedroom, which normally sets this)
+	setrespawn HEAL_LOCATION_VERMILION_CITY
 	@ RED, GREEN and BLUE already took Oak's three starters, so the lab desk is empty
 	setflag FLAG_HIDE_BULBASAUR_BALL
 	setflag FLAG_HIDE_SQUIRTLE_BALL
