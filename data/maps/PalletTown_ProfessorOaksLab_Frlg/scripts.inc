@@ -215,14 +215,20 @@ PalletTown_ProfessorOaksLab_ChooseStarterScene::
 	msgbox PalletTown_ProfessorOaksLab_Text_RivalFedUpWithWaiting
 	closemessage
 	delay 60
-	msgbox PalletTown_ProfessorOaksLab_Text_OakThreeMonsChooseOne
+	@ Kanto-Verse: no starter choice. RED, GREEN and BLUE already took Oak's POKéMON,
+	@ and Joey already has his RATTATA
+	msgbox PalletTown_ProfessorOaksLab_Text_OakStartersAlreadyTaken
 	closemessage
 	delay 30
 	applymovement LOCALID_OAKS_LAB_RIVAL, PalletTown_ProfessorOaksLab_Movement_RivalReact
 	waitmovement 0
-	msgbox PalletTown_ProfessorOaksLab_Text_RivalNoFairWhatAboutMe
-	msgbox PalletTown_ProfessorOaksLab_Text_OakBePatientRival
-	setvar VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 2
+	msgbox PalletTown_ProfessorOaksLab_Text_RivalMyCharmanderWillRoastIt
+	closemessage
+	@ BLUE has CHARMANDER: same rival teams as when the player picks BULBASAUR
+	setvar VAR_STARTER_MON, 0
+	setflag FLAG_PALLET_LADY_NOT_BLOCKING_SIGN
+	setvar VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 3
+	call_if_set FLAG_OPENED_START_MENU, PalletTown_ProfessorOaksLab_EventScript_ReadyEndSignLadyScene
 	releaseall
 	end
 
@@ -387,29 +393,25 @@ PalletTown_ProfessorOaksLab_EventScript_RivalBattleCharmander::
 	goto PalletTown_ProfessorOaksLab_EventScript_EndRivalBattle
 	end
 
+@ Kanto-Verse: BLUE never walks to the CHARMANDER ball, so he approaches from his
+@ starting spot (5, 4) and ends on the same tiles as the original approach
 PalletTown_ProfessorOaksLab_Movement_ApproachForBattleCharmanderLeft::
-	walk_left
-	walk_left
-	walk_left
-	walk_left
-	walk_left
+	walk_down
 	walk_down
 	walk_down
 	step_end
 
 PalletTown_ProfessorOaksLab_Movement_ApproachForBattleCharmanderMid::
-	walk_left
-	walk_left
-	walk_left
-	walk_left
+	walk_down
+	walk_right
 	walk_down
 	walk_down
 	step_end
 
 PalletTown_ProfessorOaksLab_Movement_ApproachForBattleCharmanderRight::
-	walk_left
-	walk_left
-	walk_left
+	walk_down
+	walk_right
+	walk_right
 	walk_down
 	walk_down
 	step_end
@@ -1384,6 +1386,25 @@ PalletTown_ProfessorOaksLab_Text_OakThreeMonsChooseOne::
 	.string "only these three left.\p"
 	.string "You can have one.\n"
 	.string "Go on, choose!$"
+
+PalletTown_ProfessorOaksLab_Text_OakStartersAlreadyTaken::
+	.string "OAK: {RIVAL}?\n"
+	.string "Let me think…\p"
+	.string "Oh, that's right, I told you to\n"
+	.string "come! Just wait!\p"
+	.string "Here, {PLAYER}.\p"
+	.string "I'm afraid you're a little late.\n"
+	.string "My three POKéMON are gone.\p"
+	.string "RED, GREEN and {RIVAL} already\n"
+	.string "chose them.\p"
+	.string "But I see you have a partner\n"
+	.string "of your own!\p"
+	.string "That RATTATA looks full of\n"
+	.string "energy. Take good care of it!$"
+
+PalletTown_ProfessorOaksLab_Text_RivalMyCharmanderWillRoastIt::
+	.string "{RIVAL}: Hah! A RATTATA?\n"
+	.string "My CHARMANDER will roast it!$"
 
 PalletTown_ProfessorOaksLab_Text_OakBePatientRival::
 	.string "OAK: Be patient, {RIVAL}.\n"

@@ -328,8 +328,13 @@ EventScript_ResetAllMapFlagsFrlg::
 	setvar VAR_MASSAGE_COOLDOWN_STEP_COUNTER, 500
 	end
 
-@ Kanto-Verse: Joey starts with his Rattata
-EventScript_GiveKantoVerseStartingMon::
+@ Kanto-Verse new game setup
+EventScript_KantoVerseNewGame::
+	@ RED, GREEN and BLUE already took Oak's three starters, so the lab desk is empty
+	setflag FLAG_HIDE_BULBASAUR_BALL
+	setflag FLAG_HIDE_SQUIRTLE_BALL
+	setflag FLAG_HIDE_CHARMANDER_BALL
+	@ Joey starts with his Rattata
 	setflag FLAG_SYS_POKEMON_GET
 	givemon SPECIES_RATTATA, 5, nature=NATURE_ADAMANT, hpIv=MAX_PER_STAT_IVS, atkIv=MAX_PER_STAT_IVS, defIv=MAX_PER_STAT_IVS, speedIv=MAX_PER_STAT_IVS, spAtkIv=MAX_PER_STAT_IVS, spDefIv=MAX_PER_STAT_IVS
 	end
