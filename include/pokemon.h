@@ -931,8 +931,6 @@ void BoxMonRestorePP(struct BoxPokemon *boxMon);
 void SetMonPreventsSwitchingString(void);
 void SetWildMonHeldItem(void);
 bool8 IsMonShiny(struct Pokemon *mon);
-u32 GetKantoVersePartnerPersonality(void);
-bool32 IsKantoVersePartnerPersonality(u32 personality);
 const u8 *GetTrainerPartnerName(void);
 void BattleAnimateFrontSprite(struct Sprite *sprite, enum Species species, bool8 noCry, u8 panMode);
 void DoMonFrontSpriteAnimation(struct Sprite *sprite, enum Species species, bool8 noCry, u8 panModeAnimFlag);

@@ -546,7 +546,6 @@ static const struct SpritePalette sObjectEventSpritePalettes[] = {
     {gObjectEventPal_NpcWhiteReflection,    OBJ_EVENT_PAL_TAG_NPC_WHITE_REFLECTION},
     {gObjectEventPal_Meteorite,             OBJ_EVENT_PAL_TAG_METEORITE},
     {gObjectEventPal_SSAnne,                OBJ_EVENT_PAL_TAG_SS_ANNE},
-    {gObjectEventPal_PlayerJoey,            OBJ_EVENT_PAL_TAG_PLAYER_JOEY},
     {gObjectEventPal_Seagallop,             OBJ_EVENT_PAL_TAG_SEAGALLOP},
 #endif // IS_FRLG
 #if OW_FOLLOWERS_POKEBALLS
@@ -2113,10 +2112,6 @@ struct Pokemon *GetFirstLiveMon(void)
         if ((OW_FOLLOWERS_ALLOWED_SPECIES && species != VarGet(OW_FOLLOWERS_ALLOWED_SPECIES))
          || (OW_FOLLOWERS_ALLOWED_MET_LVL && GetMonData(mon, MON_DATA_MET_LEVEL) != VarGet(OW_FOLLOWERS_ALLOWED_MET_LVL))
          || (OW_FOLLOWERS_ALLOWED_MET_LOC && GetMonData(mon, MON_DATA_MET_LOCATION) != VarGet(OW_FOLLOWERS_ALLOWED_MET_LOC)))
-            continue;
-
-        // Kanto-Verse: only Joey's partner Rattata (or its evolution) follows the player
-        if (GetKantoVersePartnerPersonality() != 0 && !IsKantoVersePartnerPersonality(GetMonData(mon, MON_DATA_PERSONALITY)))
             continue;
 
         if (gParties[B_TRAINER_PLAYER][i].hp > 0 && !(gParties[B_TRAINER_PLAYER][i].box.isEgg || gParties[B_TRAINER_PLAYER][i].box.isBadEgg))
