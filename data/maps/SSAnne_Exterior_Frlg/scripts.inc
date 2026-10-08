@@ -34,7 +34,6 @@ SSAnne_Exterior_ExitSSAnne::
 	delay 50
 	special DoSSAnneDepartureCutscene
 	waitstate
-	removeobject LOCALID_SS_ANNE
 	applymovement LOCALID_PLAYER, SSAnne_Exterior_Movement_Exit
 	waitmovement 0
 	setvar VAR_MAP_SCENE_VERMILION_CITY, 2
