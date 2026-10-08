@@ -18,30 +18,9 @@ The live copies used by the game are `data/tilesets/primary/kv_general` and
   dark cobble), two green trees, wooden sign, Pokémon Center, Mart.
 - **vermilion_dock**: pier planks on water, yacht, second ship (`ship2.png`), stone platforms on water (`platforms.png`, gold fences removed, asphalt on top), plank bridge over a platform edge (`plank_bridge.png`), lighthouse, blue house.
 
-## Building the game
+## Using the tilesets
 
-Run these in the Codespace terminal (see [SETUP-CODESPACES.md](../SETUP-CODESPACES.md) for the full setup).
-
-1. Get the latest changes pushed from your PC:
-
-   ```sh
-   git pull
-   ```
-
-2. Clean the previous build. This is needed after tileset changes, and after edits to headers,
-   constants or config:
-
-   ```sh
-   make clean
-   ```
-
-3. Build the FireRed ROM:
-
-   ```sh
-   make firered -j$(nproc)
-   ```
-
-4. Right-click `pokefirered.gba` in the file explorer, choose **Download**, and play it in mGBA.
+To build the game with them, see [Building the game](../README.md#building-the-game).
 
 Maps that use these tilesets need `"layout_version": "frlg"` on their layout in
 `data/layouts/layouts.json`. Without it, the game reads the block behaviors (tall grass, water,
