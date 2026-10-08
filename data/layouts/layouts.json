@@ -6768,8 +6768,8 @@
       "height": 32,
       "border_width": 2,
       "border_height": 2,
-      "primary_tileset": "gTileset_General_Frlg",
-      "secondary_tileset": "gTileset_VermilionCity",
+      "primary_tileset": "gTileset_KV_General",
+      "secondary_tileset": "gTileset_KV_VermilionDock",
       "border_filepath": "data/layouts/SSAnne_Exterior_Frlg/border.bin",
       "blockdata_filepath": "data/layouts/SSAnne_Exterior_Frlg/map.bin",
       "layout_version": "frlg"
